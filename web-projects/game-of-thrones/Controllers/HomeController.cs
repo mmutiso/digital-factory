@@ -1,4 +1,5 @@
 ﻿using GameOfThrones.Models;
+using GameOfThrones.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,14 +13,17 @@ namespace GameOfThrones.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        HttpWrapper httpWrapper;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, HttpWrapper httpWrapper)
         {
             _logger = logger;
+            this.httpWrapper = httpWrapper ?? throw new ArgumentNullException(nameof(httpWrapper));
         }
 
         public IActionResult Index()
         {
+
             return View();
         }
 
