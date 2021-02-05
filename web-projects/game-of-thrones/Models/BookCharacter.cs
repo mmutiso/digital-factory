@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace GameOfThrones.Models
 {
     public class BookCharacter
     {
+        [JsonIgnore]
+        public int Id => int.Parse(url.Split("/")[url.Split("/").Length - 1]);
         public string url { get; set; }
         public string name { get; set; }
         public string gender { get; set; }

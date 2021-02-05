@@ -6,6 +6,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using GameOfThrones.Models;
 using System.IO;
+using Microsoft.Extensions.Options;
 
 namespace GameOfThrones.Services
 {
@@ -14,9 +15,10 @@ namespace GameOfThrones.Services
         HttpClient httpClient;
         AppRuntimeSettings runtimeSettings;
 
-        public HttpWrapper(HttpClient httpClient)
+        public HttpWrapper(HttpClient httpClient, IOptions<AppRuntimeSettings> options)
         {
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            runtimeSettings = options.Value;
         }
 
         Uri GetPath(string fragment)
@@ -27,9 +29,19 @@ namespace GameOfThrones.Services
             return endpoint;
         }
 
-        public async  Task<T> Get<T>(string relativePath)
+        public async  Task<T> GetAsync<T>(string relativePath)
         {
             Uri uri = GetPath(relativePath);
+            HttpResponseMessage response = await httpClient.GetAsync(uri);
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<T>(responseBody);
+        }
+
+        public async Task<T> GetAbsoluteUrlAsync<T>(string absoluteUrl)
+        {
+            Uri uri = new Uri(absoluteUrl);
             HttpResponseMessage response = await httpClient.GetAsync(uri);
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();

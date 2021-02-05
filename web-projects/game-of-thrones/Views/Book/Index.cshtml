@@ -1,0 +1,67 @@
+﻿@model IEnumerable<GameOfThrones.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Books</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isbn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.numberOfPages)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.publisher)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mediaType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.released)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isbn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.numberOfPages)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.publisher)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.mediaType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.released)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new {  id=item.Id  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

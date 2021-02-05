@@ -1,4 +1,5 @@
 using GameOfThrones.Models;
+using GameOfThrones.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +27,7 @@ namespace GameOfThrones
         {
             services.AddControllersWithViews();
             services.AddSingleton<HttpClient>();
+            services.AddScoped<HttpWrapper>();
             services.Configure<AppRuntimeSettings>(Configuration.GetSection("RuntimeSettings"));
         }
 

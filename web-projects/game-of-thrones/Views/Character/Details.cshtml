@@ -1,0 +1,78 @@
+﻿@model GameOfThrones.Models.BookCharacter
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>BookCharacter</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.url)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.url)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.gender)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.gender)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.culture)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.culture)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.born)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.born)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.died)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.died)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.father)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.father)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.mother)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.mother)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.spouse)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.spouse)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
