@@ -41,20 +41,19 @@ namespace GameOfThrones.Services
             }   
         }
 
-        public async  Task<T> GetAsync<T>(string relativePath, int page)
+        public async  Task<ApiResponse<T>> GetAsync<T>(string relativePath, int page)
         {
             AppendHeaders();
             Uri uri = GetPath(relativePath, page);
             HttpResponseMessage response = await httpClient.GetAsync(uri);
             response.EnsureSuccessStatusCode();
-            foreach (var link in response.Headers.GetValues("Link"))
-            {
-                logger.LogInformation(link);
-            }
+            var linkHeaders =  response.Headers.GetValues("Link");          
             
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            return JsonConvert.DeserializeObject<T>(responseBody);
+            T obj = JsonConvert.DeserializeObject<T>(responseBody);
+
+            return new ApiResponse<T> { HttpResponse = obj, LinkHeader = linkHeaders.FirstOrDefault() };
         }
         public async Task<T> GetAsync<T>(string relativePath)
         {

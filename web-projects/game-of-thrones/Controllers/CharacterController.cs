@@ -21,9 +21,9 @@ namespace GameOfThrones.Controllers
         }
         public async Task<IActionResult> Index(int page)
         {
-            List<BookCharacter> characters = await httpWrapper.GetAsync<List<BookCharacter>>(RelativePaths.CharactersEndpoint, page);
+            var characters = await httpWrapper.GetAsync<List<BookCharacter>>(RelativePaths.CharactersEndpoint, page);
 
-            return View(characters);
+            return View(characters.HttpResponse);
         }
 
         public async Task<IActionResult> Details(int id)

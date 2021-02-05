@@ -19,11 +19,11 @@ namespace GameOfThrones.Controllers
             this.httpWrapper = httpWrapper;
             this.logger = logger;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page)
         {
-            List<House> houses = await httpWrapper.GetAsync<List<House>>(RelativePaths.HousesEndpoint);
+            var houses = await httpWrapper.GetAsync<List<House>>(RelativePaths.HousesEndpoint, page);
 
-            return View(houses);
+            return View(houses.HttpResponse);
         }
 
         public async Task<IActionResult> Details(int id)

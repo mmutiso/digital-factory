@@ -8,14 +8,22 @@ namespace GameOfThrones.Services
 {
     public static class LinkParser
     {
-        public static LinkMeta Parse(string linkHeaderContent)
+        public static List<LinkMeta> Parse(string linkHeaderContent)
         {
             string[] parts = linkHeaderContent.Split(",");
-            string next = parts[0].Split(";")[0];
-            string first = parts[1].Split(";")[0];
-            string last = parts[2].Split(";")[0];
+            List<LinkMeta> linkMetas = new List<LinkMeta>(parts.Length);
+            for (int i = 0; i < parts.Length; i++)
+            {
+                string part = parts[i];
+                LinkMetaType linkMetaType = GetLinkType(part.Split(";")[1]);
+                int pages = GetPageNumber(FetchLinkOnly(part.Split(";")[0]));
 
+                linkMetas.Add(new LinkMeta() { Page = pages, Type = linkMetaType });
+            }
+
+            return linkMetas;
         }
+
 
         static LinkMetaType GetLinkType(string content)
         {
@@ -44,8 +52,7 @@ namespace GameOfThrones.Services
 
         static string FetchLinkOnly(string candidate)
         {
-            int n = candidate.Length;
-            string link = candidate.Skip(1).Take(n - 2).ToString();
+            string link = candidate[1..^1].ToString();
             return link;
         }
     }
