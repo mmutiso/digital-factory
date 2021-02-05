@@ -9,28 +9,28 @@ using System.Threading.Tasks;
 
 namespace GameOfThrones.Controllers
 {
-    public class CharacterController : Controller
+    public class HouseController : Controller
     {
         HttpWrapper httpWrapper;
-        ILogger<CharacterController> logger;
+        ILogger<HouseController> logger;
 
-        public CharacterController(HttpWrapper httpWrapper, ILogger<CharacterController> logger)
+        public HouseController(HttpWrapper httpWrapper, ILogger<HouseController> logger)
         {
             this.httpWrapper = httpWrapper;
             this.logger = logger;
         }
         public async Task<IActionResult> Index()
         {
-            List<BookCharacter> characters = await httpWrapper.GetAsync<List<BookCharacter>>(RelativePaths.CharactersEndpoint);
+            List<House> houses = await httpWrapper.GetAsync<List<House>>(RelativePaths.HousesEndpoint);
 
-            return View(characters);
+            return View(houses);
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            BookCharacter character = await httpWrapper.GetAsync<BookCharacter>($"{RelativePaths.CharactersEndpoint}/{id}");
+            House house = await httpWrapper.GetAsync<House>($"{RelativePaths.HousesEndpoint}/{id}");
 
-            return View(character);
+            return View(house);
         }
     }
 }

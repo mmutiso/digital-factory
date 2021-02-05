@@ -1,0 +1,79 @@
+﻿@model GameOfThrones.Models.House
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>House</h4>
+    <hr />
+    <dl class="row">
+      
+        
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.region)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.region)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.coatOfArms)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.coatOfArms)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.words)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.words)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.currentLord)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.currentLord)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.heir)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.heir)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.overlord)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.ActionLink("Overlord", "Details", "House", new { id = Model.OverLordId })
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.founded)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.founded)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.founder)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.founder)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.diedOut)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.diedOut)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using GameOfThrones.Models;
 using System.IO;
 using Microsoft.Extensions.Options;
+using System.Net.Http.Headers;
 
 namespace GameOfThrones.Services
 {
@@ -31,6 +32,7 @@ namespace GameOfThrones.Services
 
         public async  Task<T> GetAsync<T>(string relativePath)
         {
+            AppendHeaders();
             Uri uri = GetPath(relativePath);
             HttpResponseMessage response = await httpClient.GetAsync(uri);
             response.EnsureSuccessStatusCode();
@@ -39,8 +41,14 @@ namespace GameOfThrones.Services
             return JsonConvert.DeserializeObject<T>(responseBody);
         }
 
+        void AppendHeaders()
+        {
+            httpClient.DefaultRequestHeaders.Add("Accept", "application/vnd.anapioficeandfire+json; version=1");
+        }
+
         public async Task<T> GetAbsoluteUrlAsync<T>(string absoluteUrl)
         {
+            AppendHeaders();
             Uri uri = new Uri(absoluteUrl);
             HttpResponseMessage response = await httpClient.GetAsync(uri);
             response.EnsureSuccessStatusCode();

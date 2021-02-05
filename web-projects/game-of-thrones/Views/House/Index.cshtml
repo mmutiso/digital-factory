@@ -1,37 +1,38 @@
-﻿@model IEnumerable<GameOfThrones.Models.BookCharacter>
+﻿@model IEnumerable<GameOfThrones.Models.House>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Characters</h1>
-
+<h1>Houses</h1>
 
 <table class="table">
     <thead>
         <tr>
+           
             <th>
-                @Html.DisplayName("Alias")
+                @Html.DisplayNameFor(model => model.name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.gender)
+                @Html.DisplayNameFor(model => model.region)
             </th>
-          
+           
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            
             <td>
-                @Html.DisplayFor(modelItem => item.AliasesString)
+                @Html.DisplayFor(modelItem => item.name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.gender)
+                @Html.DisplayFor(modelItem => item.region)
             </td>
            
             <td>
-                @Html.ActionLink("Details", "Details", new {  id=item.Id  }) 
+                @Html.ActionLink("Details", "Details", new {  id=item.Id }) 
             </td>
         </tr>
 }

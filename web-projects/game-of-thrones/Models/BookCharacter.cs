@@ -18,6 +18,9 @@ namespace GameOfThrones.Models
         public string died { get; set; }
         public List<string> titles { get; set; }
         public List<string> aliases { get; set; }
+
+        [JsonIgnore]
+        public string AliasesString => string.Join(", ", aliases);
         public string father { get; set; }
         public string mother { get; set; }
         public string spouse { get; set; }
