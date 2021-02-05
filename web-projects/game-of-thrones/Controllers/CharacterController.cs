@@ -23,6 +23,9 @@ namespace GameOfThrones.Controllers
         {
             var characters = await httpWrapper.GetAsync<List<BookCharacter>>(RelativePaths.CharactersEndpoint, page);
 
+            var navigationControls = LinkParser.Parse(characters.LinkHeader);
+            ViewBag.controls = new NavigationControls(navigationControls);
+
             return View(characters.HttpResponse);
         }
 

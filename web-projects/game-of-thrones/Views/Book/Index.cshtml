@@ -2,10 +2,33 @@
 
 @{
     ViewData["Title"] = "Index";
+
+    NavigationControls controls = (NavigationControls)ViewBag.controls;
 }
 
 <h1>Books</h1>
 
+<div>
+    @if (controls.HasFirst)
+    {
+        <a href="@Html.Raw($"/book?page={controls.First}")" class="btn btn-secondary btn-sm">First</a>
+    }
+    @if (controls.HasPrevious)
+    {
+        <a href="@Html.Raw($"/book?page={controls.Previous}")" class="btn btn-secondary btn-sm">Previous</a>
+    }
+    @if (controls.HasNext)
+    {
+        <a href="@Html.Raw($"/book?page={controls.Next}")" class="btn btn-secondary btn-sm">Next</a>
+    }
+    @if (controls.HasLast)
+    {
+        <a href="@Html.Raw($"/book?page={controls.Last}")" class="btn btn-secondary btn-sm">Last</a>
+    }
+
+
+</div>
+<br/>
 
 <table class="table">
     <thead>

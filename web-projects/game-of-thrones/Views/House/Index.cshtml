@@ -2,39 +2,64 @@
 
 @{
     ViewData["Title"] = "Index";
+
+    NavigationControls controls = (NavigationControls)ViewBag.controls;
 }
 
 <h1>Houses</h1>
 
+<div>
+    @if (controls.HasFirst)
+    {
+        <a href="@Html.Raw($"/house?page={controls.First}")" class="btn btn-secondary btn-sm">First</a>
+    }
+    @if (controls.HasPrevious)
+    {
+        <a href="@Html.Raw($"/house?page={controls.Previous}")" class="btn btn-secondary btn-sm">Previous</a>
+    }
+    @if (controls.HasNext)
+    {
+        <a href="@Html.Raw($"/house?page={controls.Next}")" class="btn btn-secondary btn-sm">Next</a>
+    }
+    @if (controls.HasLast)
+    {
+        <a href="@Html.Raw($"/house?page={controls.Last}")" class="btn btn-secondary btn-sm">Last</a>
+    }
+
+
+</div>
+<br />
+
 <table class="table">
     <thead>
         <tr>
-           
+
             <th>
                 @Html.DisplayNameFor(model => model.name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.region)
             </th>
-           
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.region)
-            </td>
-           
-            <td>
-                @Html.ActionLink("Details", "Details", new {  id=item.Id }) 
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.region)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

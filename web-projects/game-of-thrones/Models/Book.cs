@@ -24,6 +24,7 @@ namespace GameOfThrones.Models
         public DateTime released { get; set; }
         public List<string> characters { get; set; }
         public List<string> povCharacters { get; set; }
-
+        
+       
     }
 }

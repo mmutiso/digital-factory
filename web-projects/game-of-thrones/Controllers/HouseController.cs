@@ -23,6 +23,9 @@ namespace GameOfThrones.Controllers
         {
             var houses = await httpWrapper.GetAsync<List<House>>(RelativePaths.HousesEndpoint, page);
 
+            var navigationControls = LinkParser.Parse(houses.LinkHeader);
+            ViewBag.controls = new NavigationControls(navigationControls);
+
             return View(houses.HttpResponse);
         }
 

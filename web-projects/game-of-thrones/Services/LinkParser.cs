@@ -28,7 +28,7 @@ namespace GameOfThrones.Services
         static LinkMetaType GetLinkType(string content)
         {
             string positionString = content.Split("=")[1][1..^1];
-            switch(content)
+            switch(positionString)
             {
                 case "next":
                     return LinkMetaType.Next;
@@ -52,6 +52,7 @@ namespace GameOfThrones.Services
 
         static string FetchLinkOnly(string candidate)
         {
+            candidate = candidate.Trim();
             string link = candidate[1..^1].ToString();
             return link;
         }

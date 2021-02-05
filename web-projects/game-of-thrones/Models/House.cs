@@ -27,5 +27,7 @@ namespace GameOfThrones.Models
         public List<string> ancestralWeapons { get; set; }
         public List<string> cadetBranches { get; set; }
         public List<string> swornMembers { get; set; }
+
+
     }
 }

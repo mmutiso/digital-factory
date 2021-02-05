@@ -29,5 +29,7 @@ namespace GameOfThrones.Models
         public List<object> povBooks { get; set; }
         public List<string> tvSeries { get; set; }
         public List<string> playedBy { get; set; }
+
+
     }
 }
