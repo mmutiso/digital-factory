@@ -20,9 +20,9 @@ namespace GameOfThrones.Controllers
             this.logger = logger;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page)
         {
-            List<Book> books = await httpWrapper.GetAsync<List<Book>>(RelativePaths.BooksEndpoint);
+            List<Book> books = await httpWrapper.GetAsync<List<Book>>(RelativePaths.BooksEndpoint, page);
 
             return View(books);
         }

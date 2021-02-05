@@ -8,6 +8,7 @@ using GameOfThrones.Models;
 using System.IO;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
+using Microsoft.Extensions.Logging;
 
 namespace GameOfThrones.Services
 {
@@ -15,25 +16,50 @@ namespace GameOfThrones.Services
     {
         HttpClient httpClient;
         AppRuntimeSettings runtimeSettings;
+        ILogger<HttpWrapper> logger;
 
-        public HttpWrapper(HttpClient httpClient, IOptions<AppRuntimeSettings> options)
+        public HttpWrapper(HttpClient httpClient, IOptions<AppRuntimeSettings> options, 
+            ILogger<HttpWrapper> logger)
         {
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             runtimeSettings = options.Value;
+            this.logger = logger;
         }
 
-        Uri GetPath(string fragment)
+        Uri GetPath(string fragment, int page)
         {
             var baseUri = new Uri(runtimeSettings.ApiBaseUrl);
-            var endpoint = new Uri(baseUri, fragment);
-
-            return endpoint;
+            if (page > 0)
+            {
+                var endpoint = new Uri(baseUri, $"{fragment}?page={page}");
+                return endpoint;
+            }
+            else
+            {
+                var endpoint = new Uri(baseUri, fragment);
+                return endpoint;
+            }   
         }
 
-        public async  Task<T> GetAsync<T>(string relativePath)
+        public async  Task<T> GetAsync<T>(string relativePath, int page)
         {
             AppendHeaders();
-            Uri uri = GetPath(relativePath);
+            Uri uri = GetPath(relativePath, page);
+            HttpResponseMessage response = await httpClient.GetAsync(uri);
+            response.EnsureSuccessStatusCode();
+            foreach (var link in response.Headers.GetValues("Link"))
+            {
+                logger.LogInformation(link);
+            }
+            
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<T>(responseBody);
+        }
+        public async Task<T> GetAsync<T>(string relativePath)
+        {
+            AppendHeaders();
+            Uri uri = GetPath(relativePath, 0);
             HttpResponseMessage response = await httpClient.GetAsync(uri);
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -46,10 +72,10 @@ namespace GameOfThrones.Services
             httpClient.DefaultRequestHeaders.Add("Accept", "application/vnd.anapioficeandfire+json; version=1");
         }
 
-        public async Task<T> GetAbsoluteUrlAsync<T>(string absoluteUrl)
+        public async Task<T> GetAbsoluteUrlAsync<T>(string absoluteUrl, int page)
         {
             AppendHeaders();
-            Uri uri = new Uri(absoluteUrl);
+            Uri uri = new Uri($"{absoluteUrl}?page={page}");
             HttpResponseMessage response = await httpClient.GetAsync(uri);
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
