@@ -15,7 +15,7 @@ namespace IOUTracker.Models
         [Required]
         public string Borrower { get; set; }
         [Required]
-        public decimal Amount { get; set; }
+        public double Amount { get; set; }
 
         public IOU CreateIOU()
         {

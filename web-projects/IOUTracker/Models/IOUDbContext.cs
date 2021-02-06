@@ -20,6 +20,19 @@ namespace IOUTracker.Models
             {
                 options.HasKey(x => x.Name);
             });
+
+            builder.Entity<IOU>(options =>
+            {
+                options.HasKey(x => x.Id);
+
+                options.HasOne(x => x.Lender)
+                .WithMany(x => x.LenderIOUs)
+                .HasForeignKey(x => x.LenderId);
+
+                options.HasOne(x => x.Borrower)
+                .WithMany(x => x.BorrowerIOUs)
+                .HasForeignKey(x => x.BorrowerId);
+            });
         }
 
         public DbSet<User> Users { get; set; }

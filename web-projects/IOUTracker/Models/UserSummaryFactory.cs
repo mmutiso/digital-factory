@@ -7,17 +7,18 @@ namespace IOUTracker.Models
 {
     public class UserSummaryFactory
     {
-        ITrackerRepository repository;
+        IOUDbContext context;
 
-        public UserSummaryFactory(ITrackerRepository repository)
+        public UserSummaryFactory(IOUDbContext context)
         {
-            this.repository = repository;
+            this.context = context;
         }
 
-        public async Task<UserSummaryModel> BuildSummaryFor(string name)
+        public async Task<UserSummaryModel> BuildSummaryForAsync(string name)
         {
-            var borrowers = await repository.GetMyBorrowersAsync(name);
-            var lenders = await repository.GetMyLendersAsync(name);
+            await Task.CompletedTask;
+            var borrowers = context.IOUs.Where(x => x.LenderId.ToLower() == name.ToLower()).ToList();
+            var lenders = context.IOUs.Where(x => x.BorrowerId.ToLower() == name.ToLower()).ToList();
 
             var model = new UserSummaryModel(name, lenders, borrowers);
 

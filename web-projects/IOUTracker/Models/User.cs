@@ -29,5 +29,8 @@ namespace IOUTracker.Models
         public bool Deleted { get; set; }
         public DateTime DateCreatedUTC { get; set; }
         public DateTime? DateDeletedUTC { get; set; }
+
+        public ICollection<IOU> LenderIOUs { get; set; }
+        public ICollection<IOU> BorrowerIOUs { get; set; }
     }
 }

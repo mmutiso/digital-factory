@@ -16,18 +16,27 @@ namespace IOUTracker.Controllers
     {
         ITrackerRepository repository;
         ILogger<UsersController> logger;
+        UserSummaryFactory userSummaryFactory;
 
-        public UsersController(ITrackerRepository repository, ILogger<UsersController> logger)
+        public UsersController(ITrackerRepository repository, ILogger<UsersController> logger, UserSummaryFactory userSummaryFactory)
         {
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
             this.logger = logger ?? throw new ArgumentNullException(nameof(repository));
+            this.userSummaryFactory = userSummaryFactory ?? throw new ArgumentNullException(nameof(userSummaryFactory));
         }
 
        [HttpGet]
-        public async Task<ActionResult<List<User>>> Index()
+        public async Task<ActionResult<object>> Index()
         {
             var users = await repository.GetUsersAsync();
-            return users;
+
+            if (users.Count == 0)
+            {
+                return new { users = new string[] { } };
+            }
+
+            var response = users.Select(x => x.Name).OrderBy(x => x).ToList();
+            return new { users = response };
         }
 
         [HttpPost]
@@ -54,14 +63,17 @@ namespace IOUTracker.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(string id)
+        public async Task<ActionResult<UserSummaryModel>> GetUser(string id)
         {
-            var user = await repository.GetUserAsync(id);
-            if (user == null)
+            var exists = repository.UserExists(id);
+            if (!exists)
             {
                 return NotFound();
             }
-            return user;
+            await Task.CompletedTask;
+            var userSummary = await userSummaryFactory.BuildSummaryForAsync(id);
+
+            return userSummary;
         }
 
         [HttpDelete("{id}")]
