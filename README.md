@@ -23,3 +23,5 @@ Code to the solution is [here](web-projects/game-of-thrones)
 The solution is also provided using an ASP.NET 3.1 web api  using C#. It is deployed to a serverless instance in Azure accessible from this base use url.(Note that this wont display anything) [http://iou-tracker.azurewebsites.net/](http://iou-tracker.azurewebsites.net/). The details to run locally are provided in the [Development](Development.md) page.
 
 Code to the solution is [here](web-projects/IOUTracker)
+
+The deployed API can be tested by importing the following postman collection. [API Doc](IOU_Tracker.postman_collection.json)

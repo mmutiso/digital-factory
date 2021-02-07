@@ -64,6 +64,7 @@ While these two sets of applications fulfil the functional requirements as reque
 5. Use github actions to trigger a deployment on push to main.
 6. Improve observability by logging to a managed sink.
 7. Provide access to deployed apps via secure http.
+8. Add OpenAPI spec documentation to the IOU tracker API
 
 # Contributions
 
