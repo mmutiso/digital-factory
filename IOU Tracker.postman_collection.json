@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "11940b6c-a2fb-466e-9b3a-2641b4d870c7",
+		"name": "IOU Tracker",
+		"description": "Set of APIs for tracking IOUs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Users List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://iou-tracker.azurewebsites.net/api/users",
+					"protocol": "http",
+					"host": [
+						"iou-tracker",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"Name\": \"Mbuthia\"\n}"
+				},
+				"url": {
+					"raw": "http://iou-tracker.azurewebsites.net/api/users",
+					"protocol": "http",
+					"host": [
+						"iou-tracker",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create IOU",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Lender\": \"Olunga\",\r\n    \"Borrower\": \"Mbuthia\",\r\n    \"Amount\": 5.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://iou-tracker.azurewebsites.net/api/iou",
+					"protocol": "http",
+					"host": [
+						"iou-tracker",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"iou"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User By Name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://iou-tracker.azurewebsites.net/api/users/Olunga",
+					"protocol": "http",
+					"host": [
+						"iou-tracker",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"users",
+						"Olunga"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
